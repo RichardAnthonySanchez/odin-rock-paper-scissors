@@ -40,7 +40,7 @@ function compareInputs() {
     if (computerInput === playerInput) {
         return "Tie"
     } else if (computerInput === 0 || playerInput === 0 && computerInput === 2 || playerInput === 2) {
-    return "rock beats scissors"
+        return "rock beats scissors"
     } else if (computerInput === 1 || playerInput === 1 && computerInput === 0 || playerInput === 0) {
         return "paper beats rock."
     } else if (computerInput === 2 || playerInput === 2 && computerInput === 1 || playerInput === 1) {
@@ -50,4 +50,17 @@ function compareInputs() {
     }
 }
 
-console.log(compareInputs());
+function checkInputs() {
+    let playerInput = userNumber();
+
+    if (playerInput === 0 || playerInput === 1 || playerInput === 2 ) {
+        return compareInputs();
+    } else {
+        return "invalid input";
+    }
+}
+
+console.log(checkInputs()); 
+
+//promt happens twice
+//result doesn't say who won
