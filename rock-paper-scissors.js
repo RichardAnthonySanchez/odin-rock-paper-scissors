@@ -2,18 +2,24 @@
 function getComputerChoice() {
 let computerMove = Math.floor(Math.random() * 3);
 if (computerMove === 0) {
+console.log("computer picked rock")
 return 0;
 }
 else if (computerMove === 1) {
+console.log("computer picked paper")
 return 1;
 }
 else 
+console.log("computer picked scissors")
 return 2;
 }
 
 //converts user's input to lowercase
 function playerSelection(){
 let userInput = prompt("rock paper or scissors?");
+
+console.log("you picked " + userInput)
+
 let revisedInput = userInput.toLowerCase();
 return revisedInput;
 }
@@ -32,11 +38,12 @@ function userNumber() {
     }
 }
 
+//store player input as a global variable to prevent calling function more than once
+let playerInput = userNumber();
+let computerInput = getComputerChoice();
+
 //compare both inputs and output result in console
 function compareInputs() {
-    let computerInput = getComputerChoice();
-    let playerInput = userNumber();
-
     if (computerInput === playerInput) {
         return "Tie"
     } else if (computerInput === 0 || playerInput === 0 && computerInput === 2 || playerInput === 2) {
@@ -50,9 +57,8 @@ function compareInputs() {
     }
 }
 
+//check if input is invalid
 function checkInputs() {
-    let playerInput = userNumber();
-
     if (playerInput === 0 || playerInput === 1 || playerInput === 2 ) {
         return compareInputs();
     } else {
@@ -60,7 +66,31 @@ function checkInputs() {
     }
 }
 
-console.log(checkInputs()); 
+//console.log(checkInputs()); 
 
-//promt happens twice
-//result doesn't say who won
+//output winner in console
+function whoWon() {
+    let gameResult = compareInputs();
+    checkInputs();
+
+    if (gameResult === "rock beats scissors" && computerInput === 0) {
+        return "you lost"
+    } else if (gameResult === "rock beats scissors" && playerInput === 0){
+        return "you won!"
+    } else if (gameResult === "paper beats rock." && computerInput === 1){
+        return "you lost"
+    } else if (gameResult === "paper beats rock." && playerInput === 1){
+        return "you won!"
+    } else if (gameResult === "scissors beats paper." && computerInput === 2){
+        return "you lost"
+    } else if (gameResult === "scissors beats paper." && playerInput === 2){
+        return "you won!"
+    } else {
+        return "tie"
+    }     
+}
+
+console.log(whoWon());
+
+
+
