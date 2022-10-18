@@ -10,7 +10,6 @@ return 1;
 else 
 return 2;
 }
-//console.log(getComputerChoice())
 
 //converts user's input to lowercase
 function playerSelection(){
@@ -18,7 +17,6 @@ let userInput = prompt("rock paper or scissors?");
 let revisedInput = userInput.toLowerCase();
 return revisedInput;
 }
-//console.log(playerSelection())
 
 //converted input to number
 function userNumber() {
@@ -33,14 +31,23 @@ function userNumber() {
         return "use a valid input"
     }
 }
-//console.log(userNumber())
 
-//compare both inputs
+//compare both inputs and output result in console
 function compareInputs() {
     let computerInput = getComputerChoice();
     let playerInput = userNumber();
 
     if (computerInput === playerInput) {
         return "Tie"
+    } else if (computerInput === 0 || playerInput === 0 && computerInput === 2 || playerInput === 2) {
+    return "rock beats scissors"
+    } else if (computerInput === 1 || playerInput === 1 && computerInput === 0 || playerInput === 0) {
+        return "paper beats rock."
+    } else if (computerInput === 2 || playerInput === 2 && computerInput === 1 || playerInput === 1) {
+        return "scissors beats paper."
+    } else {
+        return "invalid input"
     }
 }
+
+console.log(compareInputs());
