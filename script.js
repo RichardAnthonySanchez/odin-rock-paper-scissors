@@ -14,57 +14,80 @@ function getComputerChoice() {
     return 2;
     }
 
-//converts user's input of rock paper scissor to lowercase
+//user's input of rock paper scissor comes from button
 function getPlayerChoice(){
-    let userInput = prompt("rock paper or scissors?");
-    
-    console.log("you picked " + userInput)
-    
-    let revisedInput = userInput.toLowerCase();
 
-    if (revisedInput === "rock") {
+    if (x === 0) {
         return 0;
-    } else if (revisedInput === "paper") {
+    } else if (x === 1) {
         return 1;
-    } else if (revisedInput === "scissors") {
-        return 2;
     } else {
-        getPlayerChoice();
+        return 2;
     }
     }
     
-    // these global arrays hold the scores of each player
-    let computerPoints = [];
-    let playerPoints = [];
-    
-    //keep score after each round and display results
-    function playRound(computerSelection,playerSelection) {
-        if (computerSelection === playerSelection) {
-            console.log("Tie")
-        } else if (computerSelection === 0 && playerSelection === 2) {
-            computerPoints.push(1);
-            console.log("You lose! Rock beats Scissors")
-        } else if (playerSelection === 0 && computerSelection === 2) {
-            playerPoints.push(1);
-            console.log("You win! Rock beats Scissors")
-        } else if (computerSelection === 1 && playerSelection === 0) {
-            computerPoints.push(1);
-            console.log("You lose! Paper beats Rock")
-        } else if (playerSelection === 1 && computerSelection === 0) {
-            playerPoints.push(1);
-            console.log("You win! Paper beats Rock")
-        } else if (computerSelection === 2 && playerSelection === 1) {
-            computerPoints.push(1);
-            console.log("You lose! Scissors beats Paper")
-        } else if (playerSelection === 2 && playerSelection === 1) {
-            playerPoints.push(1);
-            console.log("You win! Scissors beats Paper")
-        } else {
-            console.log("invalid input");
-        }
-    }
+    //event listener for buttons
+    //rock button
+    const rockBtn = document.querySelector('.rock');
+    rockBtn.addEventListener('click',()=> {
+        playRound(getComputerChoice(),0)
+        //console.log("you picked rock")
 
-    //display winner after 5 rounds
+    })
+    //paper button
+    const paperBtn = document.querySelector('.paper');
+    paperBtn.addEventListener('click',()=> {
+        playRound(getComputerChoice(),1)
+        //console.log("you picked paper")
+    })
+    //scissors button
+    const scissorsBtn = document.querySelector('.scissors');
+    scissorsBtn.addEventListener('click',()=> {
+        playRound(getComputerChoice(),2)
+        //console.log("you picked scissors")
+    })
+
+        // these global arrays hold the scores of each player
+        let computerPoints = [];
+        let playerPoints = [];
+        
+        //keep score after each round and display results
+        function playRound(computerSelection,playerSelection) {
+            if (computerSelection === playerSelection) {
+                roundDisplay("Tie")
+            } else if (computerSelection === 0 && playerSelection === 2) {
+                computerPoints.push(1);
+                roundDisplay("You lose! Rock beats Scissors")
+            } else if (playerSelection === 0 && computerSelection === 2) {
+                playerPoints.push(1);
+                roundDisplay("You win! Rock beats Scissors")
+            } else if (computerSelection === 1 && playerSelection === 0) {
+                computerPoints.push(1);
+                roundDisplay("You lose! Paper beats Rock")
+            } else if (playerSelection === 1 && computerSelection === 0) {
+                playerPoints.push(1);
+                roundDisplay("You win! Paper beats Rock")
+            } else if (computerSelection === 2 && playerSelection === 1) {
+                computerPoints.push(1);
+                roundDisplay("You lose! Scissors beats Paper")
+            } else if (playerSelection === 2 && computerSelection === 1) {
+                playerPoints.push(1);
+                roundDisplay("You win! Scissors beats Paper")
+            } else {
+                roundDisplay("invalid input");
+            }
+        }
+
+        function roundDisplay(x) {
+            const content = document.querySelector('.content');
+
+            const hThree = document.createElement('h3');
+            hThree.textContent = x;
+
+            content.appendChild(hThree);
+        }
+
+        //display winner after 5 rounds
     function game(){
         for (let i = 0; i < 5; i++){
             const computerSelection = getComputerChoice();
@@ -79,8 +102,6 @@ function getPlayerChoice(){
             return "player wins with " + playerPoints.length + " points"
         }
     }
-
-    console.log(game());
 
 
 
