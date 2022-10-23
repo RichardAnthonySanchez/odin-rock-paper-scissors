@@ -14,25 +14,12 @@ function getComputerChoice() {
     return 2;
     }
 
-//user's input of rock paper scissor comes from button
-function getPlayerChoice(){
-
-    if (x === 0) {
-        return 0;
-    } else if (x === 1) {
-        return 1;
-    } else {
-        return 2;
-    }
-    }
-    
     //event listener for buttons
+
     //rock button
     const rockBtn = document.querySelector('.rock');
     rockBtn.addEventListener('click',()=> {
         playRound(getComputerChoice(),0)
-        //console.log("you picked rock")
-
     })
     //paper button
     const paperBtn = document.querySelector('.paper');
@@ -47,12 +34,13 @@ function getPlayerChoice(){
         //console.log("you picked scissors")
     })
 
-        // these global arrays hold the scores of each player
-        let computerPoints = [];
-        let playerPoints = [];
+    // these global arrays hold the scores of each player
+    let computerPoints = [];
+    let playerPoints = [];
         
         //keep score after each round and display results
         function playRound(computerSelection,playerSelection) {
+            
             if (computerSelection === playerSelection) {
                 roundDisplay("Tie")
             } else if (computerSelection === 0 && playerSelection === 2) {
@@ -76,8 +64,11 @@ function getPlayerChoice(){
             } else {
                 roundDisplay("invalid input");
             }
+
+            game();
         }
 
+        //display results after each round
         function roundDisplay(x) {
             const content = document.querySelector('.content');
 
@@ -87,21 +78,45 @@ function getPlayerChoice(){
             content.appendChild(hThree);
         }
 
-        //display winner after 5 rounds
+        //end the game if a player reaches 5 points
     function game(){
-        for (let i = 0; i < 5; i++){
-            const computerSelection = getComputerChoice();
-            const playerSelection = getPlayerChoice();
-
-            playRound(computerSelection,playerSelection);
-        }
-
-        if (computerPoints > playerPoints) {
-            return "computer wins with " + computerPoints.length + " points"
-        } else {
-            return "player wins with " + playerPoints.length + " points"
+        if (playerPoints.length >= 5 || computerPoints.length >= 5){
+            finalScore();
         }
     }
 
+    //display final winner and their points
+    function finalScore(){
+        clearBoard();
+        if (computerPoints > playerPoints) {
+            return gameDisplay("computer wins with " + computerPoints.length + " points");
+        } else {
+            return gameDisplay("player wins with " + playerPoints.length + " points");
+        }
+    }
 
+    //display the final result to the user
+    function gameDisplay(x) {
+        const content = document.querySelector('.content');
 
+        const hOne = document.createElement('h1');
+        hOne.textContent = x;
+
+        content.appendChild(hOne);
+        console.log(x);
+    }
+
+    //remove the buttons and round results when the game is over
+    function clearBoard(){
+        const content = document.querySelector('.content');
+        const hThree = document.querySelectorAll('h3');
+        const button = document.querySelectorAll('button');
+
+        for (let i = 0; i < hThree.length; i++){
+            hThree[i].remove();
+        }
+
+        for (let i =0; i < button.length; i ++){
+            button[i].remove();
+        }
+    }
